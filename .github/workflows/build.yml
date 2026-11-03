@@ -7,7 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: unzip -q *.zip
+      - name: Unpack
+        run: |
+          for f in *.zip; do unzip -q -o "$f"; done
+          sed -i "/reobfJar/d" brickk-visuals/build.gradle
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
